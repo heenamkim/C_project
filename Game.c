@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 #define DICE_SIMULATION 1
 #define GAME_SHOW       2
@@ -42,7 +43,7 @@ int main()
             case EXIT:
                 break;
             default:
-                printf("올바르지 않은 입력입니다\n");
+                printf("  올바르지 않은 입력입니다\n");
         } // switch
     } //wile
 } // main
@@ -138,8 +139,86 @@ void highLowGame() {
         }
 }
 
-void wordGame() {
-    printf("  4.Word Game\n");
+void wordGame()
+{
+    char strWords[10][80] = { "university",
+                                "school",
+                                "mosquito",
+                                "computer",
+                                "rainbow",
+                                "department",
+                                "student",
+                                "professor",
+                                "blackboard",
+                                "sunshine"
+    };
+
+    char strWordsmeans[10][80] = { "종합대학교",
+                                   "학교",
+                                   "모기",
+                                   "컴퓨터",
+                                   "무지개",
+                                   "부서,학과",
+                                   "학생",
+                                   "교수",
+                                   "칠판",
+                                   "햇빛"
+    };
+
+    char alp[26];
+    char word[80];
+    int num;
+    int length, count=0;
+    char input;
+
+    srand(time(0));
+    num = rand() % 10;
+    length = strlen(strWords[num]); // strlen함수(문자열 길이 구하는 함 )는 변수로 두고 사용하는게 좋음!
+    for (int i = 0; i < length; i++){
+        word[i] = '_';
+    }
+    word[length] = '\0';
+    // word는 length의 길이만큼 _를 넣은 문자 배열 임
+    // 따라서 문자열 배열로 만들어 주기 위해 length에 '\0'를 넣어 만들어줌
+
+    for (int j = 0; j < 26; j++){
+        alp[j] = 'a'+j;
+    }
+    while(1) {
+        if (strcmp(strWords[num], word) == 0)
+        // strcmp함수는 괄호 안에 있는 두 문자열배열을 비교해줌
+            break;
+            printf("\n     ");
+        for (int i = 0; i < length; i++){
+            printf("%c ", word[i]);
+        }
+        printf("\n\n   ");
+        for (int j = 0; j < 26; j++){
+            printf("%c ", alp[j]);
+            if (j == 12)
+                printf("\n     ");
+        } //for j
+        fflush(stdin);
+        printf("\n\nalp input >> ");
+        scanf("%c", &input);
+        count++;
+
+        for (int k = 0; k < length; k++){
+            if (input == strWords[num][k])
+            // input으로 받은 값과 strWords[랜덤으로 받은 단어][그 단어의 알파벳]이 같으면
+                word[k] = input;
+        }
+        for (int k = 0; k < 26; k++){
+            if (input == alp[k])
+                alp[k] = '/';
+        }
+
+    } //while
+    printf("count = %d\n\n",count);
+    printf("word : %s, means : %s\n\n",strWords[num],strWordsmeans[num]);
+
+
+
 }
 
 void about() {
