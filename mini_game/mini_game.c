@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 
 #define MEMORY_GAME       1
 #define THIRTYONE_GAME    2
@@ -40,7 +42,7 @@ int MainMenu()
     int menu;
 
     printf("  ======================\n");
-    printf("       MiNI GAME\n");
+    printf("       MINI GAME\n");
     printf("  ______________________\n");
     printf("  1. MEMORY_GAME\n");
     printf("  2. THIRTYONE_GAME\n");
@@ -58,7 +60,17 @@ int MainMenu()
 
     void MemoryGame()
     {
-        printf("  MemoryGame()\n");
+        char subject[20];
+        int len = 0;
+        
+        scanf("%s", subject);
+        len = strlen(subject);
+        while(1){
+            for (int i = 0; i < len; i++){
+                printf("%s에 가면~\n", subject[i]);
+                break;
+            }
+        }
     }
 
     void ThirtyOneGame()
