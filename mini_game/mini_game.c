@@ -61,23 +61,103 @@ int MainMenu()
     void MemoryGame()
     {
         char subject[20];
+        char word[10];
+        char words[20][10];
         int len = 0;
-        
+
+        printf("  SUBJECT : FRUIT, VEGETABLE, FISH, HOUSE, ANIMAL\n");
+        printf("  SUBJECT >> ");
         scanf("%s", subject);
         len = strlen(subject);
         while(1){
-            for (int i = 0; i < len; i++){
-                printf("%s에 가면~\n", subject[i]);
-                break;
+            for (int j = 0; j < 20; j++){
+                printf("  \nWhen you go to the %s~\n", subject);
+
+                for (int k = 0; k < 20; k++){
+
+                }
             }
         }
     }
 
     void ThirtyOneGame()
     {
-        printf("  ThirtyOneGame\n");
+        int player_num;
+        printf("  How many people?? ");
+        scanf("%d", &player_num);
+        int player[player_num];
+        int number[31];
+        int many , count = 1, count2 = 0;
+
+        for (int i = 0; i < 31; i++){
+            number[i] = i+1;
+        }
+        printf("  \nBaskin Rabbins ThirtyOne~\n\n");
+        while(1){
+
+            for(int i = 0; i < player_num; i++){
+
+                printf("  \nplayer%d How many nambers? >> ", i+1);
+                scanf("%d", &many);
+
+                if (many == 1){
+                    printf("  %d\n", count);
+                    count += 1;
+                }
+                else if (many == 2){
+                    printf("  %d %d\n", count, count+1);
+                    count += 2;
+                }
+                else if (many == 3){
+                    printf("  %d %d %d\n", count, count+1, count+2);
+                    count += 3;
+                }
+                else {
+                    printf("  Too much\n");
+                    i--;
+                }
+
+                if (count >= 32){
+                    printf("  player%d Lose~~\n\n", i+1);
+                    count2 = 1;
+                    break;
+                }
+            }
+            if (count2 == 1){
+                break;
+            }
+        }
     }
     void FoolGugudanGame()
     {
-        printf("  FoolGugudanGame\n");
+        int a, b;
+        int total, num;
+        int check;
+
+        printf("  Game Start!!\n\n");
+        for (int i = 0; i <= 20; i++){
+            if (i == 20){
+                printf("  Draw~\n");
+                break;
+            }
+            total = 0;
+            printf("  \nnumber%d) Input Number >> ", i+1);
+            scanf("%d %d", &a, &b);
+            num = a * b;
+            if (num >= 10){
+                total += num / 10;
+                total += (num % 10) * 10;
+            }
+            else{
+                total = num;
+            }
+
+            printf("  Answer >> ");
+            scanf("%d", &check);
+
+            if(total != check){
+                printf("  You Lose~\n\n");
+                break;
+            }
+        }
     }
