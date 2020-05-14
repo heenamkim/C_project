@@ -63,18 +63,33 @@ int MainMenu()
         char subject[20];
         char word[10];
         char words[20][10];
-        int len = 0;
+        int count = 0;
 
+        printf("  Game Start!!\n\n");
         printf("  SUBJECT : FRUIT, VEGETABLE, FISH, HOUSE, ANIMAL\n");
         printf("  SUBJECT >> ");
         scanf("%s", subject);
-        len = strlen(subject);
+
         while(1){
-            for (int j = 0; j < 20; j++){
-                printf("  \nWhen you go to the %s~\n", subject);
-
-                for (int k = 0; k < 20; k++){
-
+            for (int j = 1; j < 20; j++){
+                if (j % 2 == 1){
+                    printf("  \nPlayer1");
+                }
+                else {
+                    printf("  \nPlayer2");
+                }
+                printf("\n  When you go to the %s~\n", subject);
+                for (int i = 0; i < j; i++){
+                    printf("  INPUT%d/%d >> ", j, i+1);
+                    scanf("%s", word);
+                    strcpy(words[j-1], word);
+                    if (j > 1){
+                        if (strcmp(word, words[i]) != 0){
+                            printf("  You Lose~\n");
+                            count = 1;
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -83,6 +98,7 @@ int MainMenu()
     void ThirtyOneGame()
     {
         int player_num;
+        printf("  Game Start!!\n\n");
         printf("  How many people?? ");
         scanf("%d", &player_num);
         int player[player_num];
@@ -100,27 +116,23 @@ int MainMenu()
                 printf("  \nplayer%d How many nambers? >> ", i+1);
                 scanf("%d", &many);
 
-                if (many == 1){
-                    printf("  %d\n", count);
-                    count += 1;
-                }
-                else if (many == 2){
-                    printf("  %d %d\n", count, count+1);
-                    count += 2;
-                }
-                else if (many == 3){
-                    printf("  %d %d %d\n", count, count+1, count+2);
-                    count += 3;
-                }
-                else {
-                    printf("  Too much\n");
+                if (many > 3) {
+                    printf("\n  Too much\n");
                     i--;
                 }
 
-                if (count >= 32){
-                    printf("  player%d Lose~~\n\n", i+1);
-                    count2 = 1;
-                    break;
+                else {
+                    printf("  ");
+                    for (int j = 0; j < many; j++){
+                        if (count >= 32){
+                            printf("\n  player%d Lose~~\n\n", i+1);
+                            count2 = 1;
+                            break;
+                        }
+                        printf("%d ", count);
+                        count++;
+                    }
+                    printf("\n");
                 }
             }
             if (count2 == 1){
@@ -135,14 +147,16 @@ int MainMenu()
         int check;
 
         printf("  Game Start!!\n\n");
+
+        printf("  Player1 Input Number >> ");
+        scanf("%d %d", &a, &b);
         for (int i = 0; i <= 20; i++){
             if (i == 20){
                 printf("  Draw~\n");
                 break;
             }
             total = 0;
-            printf("  \nnumber%d) Input Number >> ", i+1);
-            scanf("%d %d", &a, &b);
+
             num = a * b;
             if (num >= 10){
                 total += num / 10;
@@ -152,12 +166,19 @@ int MainMenu()
                 total = num;
             }
 
-            printf("  Answer >> ");
-            scanf("%d", &check);
-
-            if(total != check){
-                printf("  You Lose~\n\n");
-                break;
+            if (i % 2 == 1) {
+                printf("\n  Player1 Answer >> ");
+                scanf("%d", &check);
             }
+            else {
+                printf("\n  Player2 Answer >> ");
+                scanf("%d", &check);
+            }
+                if(total != check){
+                    printf("  You Lose~\n\n");
+                    break;
+                }
+                printf("        Input Number >> ");
+                scanf("%d %d", &a, &b);
         }
     }
