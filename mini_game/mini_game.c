@@ -61,80 +61,87 @@ int MainMenu()
 void MemoryGame()
 {
     int subject;
-    char word[10];
+    char word[20];
     char subjects[5][10] = {"FRUIT", "VEGETABLE", "FISH", "HOUSE", "ANIMAL"};
-    char fruit[20][20] = {"apple", "pear", "cherry", "melon", "banana",
+    char subject_words[5][20][20] = {{"apple", "pear", "cherry", "melon", "banana",
                         "peach", "grape", "orange", "mango","pineapple",
                         "plum", "coconut", "strawberry", "kiwi", "lemon",
-                        "watermelon", "papaya", "lime", "durian", "papaya"};
-    char vegetable[20][20] = {"aloe", "broccoli", "carrot", "celery", "corn",
-                            "eggplant", "garlic", "ginger", "onion", "potato",
-                            "avocado", "tomato", "pea", "pumpkin", "cucumber",
-                            "cabbage", "pimento", "bean", "leek", "lettuce"};
-    char fish[20][20] = {"crayfish", "mackerel", "oyster", "cod", "bream",
+                        "watermelon", "papaya", "lime", "durian", "papaya"},
+                        {"aloe", "broccoli", "carrot", "celery", "corn",
+                        "eggplant", "garlic", "ginger", "onion", "potato",
+                        "avocado", "tomato", "pea", "pumpkin", "cucumber",
+                        "cabbage", "pimento", "bean", "leek", "lettuce"},
+                        {"crayfish", "mackerel", "oyster", "cod", "bream",
                         "anchovy", "octopus", "swellfish", "shark", "shrimp",
                         "salmon", "squid", "abalone", "clam", "herring",
-                        "mussel", "flatfish", "eel", "angler", "carp"};
-    char house[20][20] = {"mirror", "lamp", "microwave", "table", "refrigerator",
+                        "mussel", "flatfish", "eel", "angler", "carp"},
+                        {"mirror", "lamp", "microwave", "table", "refrigerator",
                         "telephone", "computer", "television", "iron", "dest",
                         "printer", "calender", "chair", "bed", "clock",
-                        "closet", "sofa", "carpet", "window", "book"};
-    char animal[20][20] = {"dog", "cat", "crow", "frog", "spider",
+                        "closet", "sofa", "carpet", "window", "book"},
+                        {"dog", "cat", "crow", "frog", "spider",
                         "turtle", "goose", "whale", "gorilla", "hedgehog",
                         "bear", "cricket", "magpie", "giraffe", "butterfly",
-                        "camel", "racoon", "wolf", "snail", "donkey"};
-    char words[20][10];
-    int count = 1;
+                        "camel", "racoon", "wolf", "snail", "donkey"}};
+    char words[10][20];
     int flag = 1;
+    int count = 1;
 
     printf("  Game Start!!\n\n");
     printf("  SUBJECT : 1.FRUIT, 2.VEGETABLE, 3.FISH, 4.HOUSE, 5.ANIMAL\n");
     printf("  SUBJECT NUMBER >> ");
     scanf("%d", &subject);
+    subject--;
+
 
     while(flag) {
-        for (int j = 1; j <= 10; j++) {
+        for (int j = 1; j <= 11; j++) {
             if (j % 2 == 1) {
                 printf("  \nPlayer1");
             }
             else {
                 printf("  \nPlayer2");
             }
-            printf("\n  When you go to the %s~\n", subjects[subject-1]);
+            printf("\n  When you go to the %s~\n", subjects[subject]);
             for (int i = 0; i < j; i++) {
-                printf("  INPUT%d/%d >> ", j, i+1);
-                scanf("%s", word);
-                if (subject == 1) {
-                    for (int i = 0; i < 20; i++){
-                        if (strcmp(word, fruit[i]) == 0) {
-                            if (strcom(word, words[i]) == 0){
-                                strcpy(words[j-1], word);
-                                count = 0;
-                                break;
-                            }
-                        }
+                if (i < j-1) {
+                    printf("  INPUT%d/%d >> ", j-1, i+1);
+                    scanf("%s", word);
+                    if (strcmp(word, words[i]) == 0){
+                        continue;
                     }
-                    if (count == 1) {
-                        printf("  You Lose~\n");
+                    else {
+                        printf("You Lose~\n");
                         flag = 0;
                         break;
                     }
                 }
-                // strcpy(words[j-1], word);
-                // if (j > 1){
-                //     if (strcmp(word, words[i]) != 0){
-                //         printf("  You Lose~\n");
-                //         flag = 0;
-                //         break;
-                //     }
-                // }
+                else {
+                    printf("  NEWINPUT >> ");
+                    scanf("%s", word);
+                    count = 1;
+                    for (int k = 0; k < 20; k++) {
+                        if (strcmp(word, subject_words[subject][k]) == 0) {
+                            strcpy(words[j-1], word);
+                            count = 0;
+                        }
+                    }
+                    if (count == 1) {
+                        printf("  Please re-enter.\n");
+                        i--;
+                    }
+                }
             }
-            if (!flag){
+            if (!flag) {
                 break;
+            }
+            if (j == 11) {
+                printf("Draw~\n");
             }
         }
     }
 }
+
 
 void ThirtyOneGame()
 {
@@ -190,7 +197,7 @@ void FoolGugudanGame()
 
     printf("  Game Start!!\n\n");
 
-    printf("  Player1 Input Number >> ");
+    printf("  1) Player1 Input Two Numbers >> ");
     scanf("%d %d", &a, &b);
     for (int i = 0; i <= 20; i++){
         if (i == 20){
@@ -209,18 +216,18 @@ void FoolGugudanGame()
         }
 
         if (i % 2 == 1) {
-            printf("\n  Player1 Answer >> ");
+            printf("\n  %d) Player1 Answer >> ", i+2);
             scanf("%d", &check);
         }
         else {
-            printf("\n  Player2 Answer >> ");
+            printf("\n  %d) Player2 Answer >> ", i+2);
             scanf("%d", &check);
         }
             if(total != check){
                 printf("  You Lose~\n\n");
                 break;
             }
-            printf("        Input Number >> ");
+            printf("        Input Two Numbers >> ");
             scanf("%d %d", &a, &b);
     }
 }
