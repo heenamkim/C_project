@@ -79,11 +79,78 @@ void Delete()
 }
 void Update()
 {
-    printf("update");
+    Bread *p = phead;
+    char name[20];
+
+    int num;
+    char new_name[20];
+    int new_price, new_quan, new_exp;
+
+    printf("Bread name : ");
+    scanf("%s", name);
+
+    while (p != NULL){
+
+        if (strcmp(name, p->name) == 0) {
+            break;
+        }
+        else {
+            p = p->next;
+        }
+    }
+
+    if (p == NULL) {
+        printf("찾는 이름이 없습니다.\n");
+    } else {
+
+        printf("변경할 변수를 고르세요.\n");
+        printf("1. name\n");
+        printf("2. price\n");
+        printf("3. quantity\n");
+        printf("4. expiration_date\n");
+        scanf("%d", &num);
+        if (num == 1) {
+            printf("변경할 이름을 입력하세요.\n");
+            scanf("%s", new_name);
+            strcpy(p->name, new_name);
+        }
+        else if (num == 2) {
+            printf("변경할 가격을 입력하세요.\n");
+            scanf("%d", &new_price);
+            p->price = new_price;
+        }
+        else if (num == 3) {
+            printf("변경할 수량을 입력하세요.\n");
+            scanf("%d", &new_quan);
+            p->quantity = new_quan;
+        }
+        else {
+            printf("변경할 유통기한을 입력하세요.\n");
+            scanf("%d", &new_exp);
+            p->expiration_date = new_exp;
+        }
+    }
 }
 void Retrieve()
 {
-    printf("retrieve");
+    Bread *p = phead;
+    char found_name[20];
+
+    printf("찾으시는 빵이름을 입력해 주세요: ");
+    scanf("%s", found_name);
+
+    while (p != NULL) {
+
+        if (strcmp(found_name, p->name) == 0) {
+            printf("name: %s| price: %d| expiration_date: %d: quantity:%d\n", p->name, p->price, p->expiration_date, p->quantity);
+            break;
+        } else {
+            p = p -> next;
+        }
+    }
+    if (p == NULL) {
+        printf("찾으시는 빵이 없습니다.\n");
+    }
 }
 void Print()
 {
