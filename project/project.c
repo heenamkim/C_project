@@ -53,7 +53,7 @@ void Insert()
 {
     char name[20];
     int pri, exp, q;
-    Bread *new = (Bread *)malloc(sizeof(Bread));
+    Bread *new = (Bread *)malloc(sizeof(Bread)); // bread구조체 new에 bread 크기만큼 할당
 
     printf("빵 이름: ");
     scanf("%s", name);
@@ -63,23 +63,47 @@ void Insert()
     scanf("%d", &exp);
     printf("수량: ");
     scanf("%d", &q);
-    strcpy(new->name, name);
-    new->price = pri;
-    new->expiration_date = exp;
-    new->quantity = q;
+    strcpy(new->name, name); // new 가 가리키는 name에 name을 복사
+    new->price = pri; // new가 가르키는 price pri
+    new->expiration_date = exp; // new가 가르키는 expiration_date는 exp
+    new->quantity = q; // new가 가르키는 quantity는 q
 
-    new->next = phead;
-    phead = new;
+    new->next = phead; // new가 가르키는 next는 phead
+    phead = new; // phead는 new
     // free(new);
 }
 
 void Delete()
 {
-    printf("delete");
+    char del_name[20];
+    Bread *p = phead;
+    Bread *del = (Bread *)malloc(sizeof(Bread));
+
+    printf("삭제할 빵 이름을 입력해 주세요 >> ");
+    scanf("%s", del_name);
+
+    strcpy(del->name, del_name);
+    while (p != NULL){
+
+        if (strcmp(del_name, p->next->name) == 0) {
+            break;
+        }
+        else {
+            p = p->next;
+        }
+    }
+    if (p == NULL) {
+        printf("삭제하려는 이름이 존재하지 않습니다.\n");
+    }
+    else {
+        printf("삭제되었습니다.\n");
+        p->next = p->next->next;
+        free(del);
+    }
 }
 void Update()
 {
-    Bread *p = phead;
+    Bread *p = phead; //bread구조체 p는 phead
     char name[20];
 
     int num;
@@ -89,51 +113,53 @@ void Update()
     printf("Bread name : ");
     scanf("%s", name);
 
-    while (p != NULL){
+    while (p != NULL){ // p가 null이 아닐때까지 반복
 
-        if (strcmp(name, p->name) == 0) {
-            break;
+        if (strcmp(name, p->name) == 0) { // 입력받은 name과 p가 가리키는 name이 같으면
+            break; // while문 빠져 나오기
         }
-        else {
-            p = p->next;
+        else { //다르면
+            p = p->next; // p는 p가 가르키는 next를 가르킴
         }
     }
 
     if (p == NULL) {
         printf("찾는 이름이 없습니다.\n");
-    } else {
+    }
+    else {
 
         printf("변경할 변수를 고르세요.\n");
         printf("1. name\n");
         printf("2. price\n");
         printf("3. quantity\n");
         printf("4. expiration_date\n");
+        printf("number >> ");
         scanf("%d", &num);
         if (num == 1) {
-            printf("변경할 이름을 입력하세요.\n");
+            printf("변경할 이름을 입력하세요.>> ");
             scanf("%s", new_name);
-            strcpy(p->name, new_name);
+            strcpy(p->name, new_name); // p가 가르키는 name에 입력받은 new_name을 복사
         }
         else if (num == 2) {
-            printf("변경할 가격을 입력하세요.\n");
+            printf("변경할 가격을 입력하세요.>> ");
             scanf("%d", &new_price);
-            p->price = new_price;
+            p->price = new_price; // p가 가르키는 price는 입력받은 new_price
         }
         else if (num == 3) {
-            printf("변경할 수량을 입력하세요.\n");
+            printf("변경할 수량을 입력하세요.>> ");
             scanf("%d", &new_quan);
-            p->quantity = new_quan;
+            p->quantity = new_quan; // p가 가르키는 quantity는 입력받은 new_quan
         }
         else {
-            printf("변경할 유통기한을 입력하세요.\n");
+            printf("변경할 유통기한을 입력하세요.>> ");
             scanf("%d", &new_exp);
-            p->expiration_date = new_exp;
+            p->expiration_date = new_exp; // p가 가르키는 expiration_date는 new_exp
         }
     }
 }
 void Retrieve()
 {
-    Bread *p = phead;
+    Bread *p = phead; //bread구조체 p는 phead
     char found_name[20];
 
     printf("찾으시는 빵이름을 입력해 주세요: ");
@@ -141,11 +167,11 @@ void Retrieve()
 
     while (p != NULL) {
 
-        if (strcmp(found_name, p->name) == 0) {
+        if (strcmp(found_name, p->name) == 0) { // 입력받은 found_name과 p가 가르키는 name이 같으면
             printf("name: %s| price: %d| expiration_date: %d: quantity:%d\n", p->name, p->price, p->expiration_date, p->quantity);
             break;
-        } else {
-            p = p -> next;
+        } else { // 다르면
+            p = p -> next; // p는 p가 가르키는 next
         }
     }
     if (p == NULL) {
@@ -154,15 +180,15 @@ void Retrieve()
 }
 void Print()
 {
-    Bread *p = phead;
+    Bread *p = phead; // bread구조체 p는 phead
     int i = 1;
 
-    printf("  Name   Price   Amount   exp\n");
-    printf("______________________________________\n");
+    printf("     Name   Price   Amount   exp\n");
+    printf("__________________________________\n");
 
     while(p != NULL){
 
-        printf("%d   %s   %d   %d   %d\n", i, p->name, p->price, p->quantity, p->expiration_date);
+        printf("%d  %s    %d    %d     %d\n", i, p->name, p->price, p->quantity, p->expiration_date);
         i++;
         p = p->next;
 
