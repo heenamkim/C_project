@@ -77,28 +77,33 @@ void Delete()
 {
     char del_name[20];
     Bread *p = phead;
-    Bread *del = (Bread *)malloc(sizeof(Bread));
+    Bread *del = phead; // phead에 새로운 del 변수를 만듬
 
     printf("삭제할 빵 이름을 입력해 주세요 >> ");
     scanf("%s", del_name);
 
-    strcpy(del->name, del_name);
     while (p != NULL){
 
-        if (strcmp(del_name, p->next->name) == 0) {
+        if (strcmp(del_name, p->name) == 0) { // 입력 받은 값과  p가 가르키는 name 과 같으면
             break;
         }
-        else {
-            p = p->next;
+        else { // 아니면
+            del = p; //  del 은 p
+            p = p->next; // p는 p가 가르키는 next
         }
     }
     if (p == NULL) {
         printf("삭제하려는 이름이 존재하지 않습니다.\n");
     }
     else {
+        if (del == phead){ // 만약 del과 phead와 같으면
+            phead = p->next; // phead는 p가 가르키는 next
+        }
+        else { // 다르면
+            del->next = p->next; //del이 가르키는 next값에 p가 가르키는 next값을 넣음
+        }
         printf("삭제되었습니다.\n");
-        p->next = p->next->next;
-        free(del);
+        free(p);
     }
 }
 void Update()
