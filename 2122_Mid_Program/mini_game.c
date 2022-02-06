@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#define BULL_SAND_COWS 1
+#define BASKIN_ROBBIN_SGAME 2
+#define HIGH_LOW_GAME 3
+#define CARD_GAME 4
 
 int bullsAndCows();
 int baskinRobbinsGame();
@@ -32,19 +36,19 @@ int main() {
                 printf("다음에 또 이용해주세요:0\n\n");
                 break;
             }
-            case 1: {
+            case BULL_SAND_COWS: {
                 bullsAndCows();
                 break;
             }
-            case 2: {
+            case BASKIN_ROBBIN_SGAME: {
                 baskinRobbinsGame();
                 break;
             }
-            case 3: {
+            case HIGH_LOW_GAME: {
                 highLowGame();
                 break;
             }
-            case 4: {
+            case CARD_GAME: {
                 cardGame();
                 break;
             }
@@ -66,10 +70,20 @@ int main() {
 }
     int bullsAndCows() {
         srand(time(NULL));
+        printf("  =============================\n");
+        printf("           Bulls And Cows         \n");
+        printf("  -----------------------------\n");
+        printf("  정답으로 예상되는 숫자 3개를 입력합니다.\n");
+        printf("  숫자만 맞으면 b 숫자와 위치까지 맞으면 s로 힌트 표시가 됩니다.\n");
+        printf("  총 기회는 10번 입니다.\n");
+        printf("  =============================\n\n");
+        printf("  Game Start!!\n\n");
+
         int numbers[3] = {}, input_arr[3] = {};
         int number_list[10] = {0};
         int input;
         int i = 0;
+
 
         while(i < 3) {
             numbers[i] = (rand() % 9) +1;
@@ -81,10 +95,10 @@ int main() {
         for (int j = 0; j <= 9; j++) {
             int b = 0, s = 0;
             if (j == 9) {
-                printf("땡! 틀렸습니다. 정답은 %d %d %d입니다.\n\n",numbers[0], numbers[1], numbers[2]);
+                printf("  땡! 틀렸습니다. 정답은 %d %d %d입니다.\n\n",numbers[0], numbers[1], numbers[2]);
                 break;
             }
-            printf("(%d이닝)정답을 입력해 주세요:", j+1);
+            printf("  (%d이닝)정답을 입력해 주세요:", j+1);
             scanf("%d", &input);
             for (int k = 0; k < 3; k++) {
                 input_arr[2-k] = input % 10;
@@ -103,10 +117,10 @@ int main() {
                 }
             }
             if (s == 3) {
-                printf("정답입니다. 축하합니다!\n\n");
+                printf("\n  정답입니다. 축하합니다!\n\n");
                 break;
             }
-            printf("%ds %db 입니다.\n", s, b);
+            printf("  %ds %db 입니다.\n", s, b);
         }
 
     }
@@ -143,7 +157,7 @@ int main() {
 
             printf("  computer의 입력값은 ");
             if (last_num == 30) {
-                printf("31입니다. user가 이겼습니다. 축하합니다.\n\n");
+                printf(" 31입니다. user가 이겼습니다. 축하합니다.\n\n");
                 break;
             }
             else if (last_num == 29) {
@@ -172,18 +186,19 @@ int main() {
         printf("  1~100중 랜덤으로 골라진 숫자 하나를 맞추는 게임입니다.\n");
         printf("  총 10번의 기회가 주어집니다.\n");
         printf("  =============================\n");
+
         int input, random_num;
         random_num = (rand() % 100) + 1;
 
         for (int i = 0; i <= 10; i++) {
             if (i == 10) {
-                printf("  아쉽지만 탈락! 정답은 %d 입니다.\n\n", random_num);
+                printf("\n  아쉽지만 탈락! 정답은 %d 입니다.\n\n", random_num);
                 break;
             }
             printf("  (%d번 남음)정답을 입력해 주세요.:", 10-i);
             scanf("%d", &input);
             if (random_num == input){
-                printf("  축하합니다. 정답입니다!!\n\n");
+                printf("\n  축하합니다. 정답입니다!!\n\n");
                 break;
             }
             else if (random_num > input)
